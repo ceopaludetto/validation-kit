@@ -1,29 +1,25 @@
-public struct StringLengthConstraint<Previous>: Schema where Previous: Schema, Previous.Output == String {
-	public typealias Input = Previous.Output
-	public typealias Output = String
-
-	private let previous: Previous
-	private let size: UInt
-
-	public init(_ previous: Previous, _ size: UInt) {
-		self.previous = previous
-		self.size = size
-	}
-
-	public func validate(_ value: Any) -> Result<Output, ValidationError> {
-		previous.validate(value)
-			.flatMap {
-				guard $0.count == size else {
-					return .failure(ValidationError("Expected a string of size \(size)"))
-				}
-
-				return .success($0)
-			}
-	}
-}
-
 public extension Schema {
-	func length(_ size: UInt) -> StringLengthConstraint<Self> where Self.Output == String {
-		.init(self, size)
+	func length(_ size: UInt) -> IsConstraint<Self> where Self.Output == String {
+		length(message: "Expected a string of size \(size)", size)
+	}
+
+	func length(message: String, _ size: UInt) -> IsConstraint<Self> where Self.Output == String {
+		self.is(message: message) { $0.count == size }
+	}
+
+	func min(_ size: UInt) -> IsConstraint<Self> where Self.Output == String {
+		min(message: "Expected a string of minimum size \(size)", size)
+	}
+
+	func min(message: String, _ size: UInt) -> IsConstraint<Self> where Self.Output == String {
+		self.is(message: message) { $0.count >= size }
+	}
+
+	func max(_ size: UInt) -> IsConstraint<Self> where Self.Output == String {
+		max(message: "Expected a string of maximum size \(size)", size)
+	}
+
+	func max(message: String, _ size: UInt) -> IsConstraint<Self> where Self.Output == String {
+		self.is(message: message) { $0.count <= size }
 	}
 }

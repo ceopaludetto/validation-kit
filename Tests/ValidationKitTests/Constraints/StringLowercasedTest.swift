@@ -2,8 +2,8 @@ import Testing
 @testable import ValidationKit
 
 struct StringLowercasedTest {
-	@Test
-	func successfullyCreate() {
+	@Test("Should correctly lowercase string")
+	func shouldCorrectlyLowercaseString() {
 		let validator = Validator.string().lowercased()
 
 		#expect(validator.validate("HELLO") == .success("hello"))

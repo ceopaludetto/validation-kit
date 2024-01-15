@@ -2,8 +2,8 @@ import Testing
 @testable import ValidationKit
 
 struct StringEmailTest {
-	@Test
-	func successfullyCreate() {
+	@Test("Should correctly validate email")
+	func shouldCorrectlyValidateEmail() {
 		let validator = Validator.string().email()
 
 		#expect(validator.validate("ceo.paludetto@gmail.com") == .success("ceo.paludetto@gmail.com"))
