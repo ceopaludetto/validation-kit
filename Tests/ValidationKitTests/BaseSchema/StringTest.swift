@@ -2,9 +2,11 @@ import Testing
 @testable import ValidationKit
 
 struct StringTest {
-	@Test
-	func successfullyCreate() {
-		#expect(Validator.string().validate("Hello, world!") == .success("Hello, world!"))
-		#expect(Validator.string().validate(42) == .failure(.init("Expected a string")))
+	@Test("Should correctly create string schema")
+	func shouldCorrectlyCreateStringSchema() {
+		let validator = Validator.string()
+
+		#expect(validator.validate("Hello, world!") == .success("Hello, world!"))
+		#expect(validator.validate(42) == .failure(.init("Expected a string")))
 	}
 }

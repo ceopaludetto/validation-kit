@@ -2,8 +2,8 @@ import Testing
 @testable import ValidationKit
 
 struct StringUppercasedTest {
-	@Test
-	func successfullyCreate() {
+	@Test("Should correctly uppercase string")
+	func shouldCorrectlyUppercaseString() {
 		let validator = Validator.string().uppercased()
 
 		#expect(validator.validate("HELLO") == .success("HELLO"))

@@ -2,8 +2,8 @@ import Testing
 @testable import ValidationKit
 
 struct StringTrimTest {
-	@Test
-	func successfullyCreate() {
+	@Test("Should correctly trim string")
+	func shouldCorrectlyTrimString() {
 		let validator = Validator.string().trim(in: .whitespaces)
 
 		#expect(validator.validate("         hello  ") == .success("hello"))

@@ -1,6 +1,6 @@
-public struct ArraySchema<T>: Schema {
+public struct BooleanSchema: Schema {
 	public typealias Input = Any
-	public typealias Output = [T]
+	public typealias Output = Bool
 
 	private let message: String
 
@@ -18,7 +18,7 @@ public struct ArraySchema<T>: Schema {
 }
 
 public extension Validator {
-	static func array<T>(message: String = "Expected an array", _: T.Type) -> ArraySchema<T> {
+	static func boolean(message: String = "Expected a boolean") -> BooleanSchema {
 		.init(message: message)
 	}
 }
